@@ -1,0 +1,247 @@
+CREATE TABLE enroll.Lecturer(
+	LecturerID int AUTO_INCREMENT not null,
+	LecturerName varchar(30) Not null,
+	LecturerHighestQualification varchar(10) null,
+	LecturerAge date Not null,
+	DepartmentID int not null,
+    CONSTRAINT FK_DepartmentID FOREIGN KEY (DepartmentID)
+    REFERENCES `enroll`.Department(DepartmentID),
+	InsertedOn datetime  Not Null,
+    PRIMARY KEY(`LecturerID`)
+);
+
+
+CREATE TABLE enroll.Student(
+	StudentID int AUTO_INCREMENT Not null,
+	StudentFirstName varchar (15) Not Null,
+	StudentLastName varchar(15) Null,
+	StudentDOB Date Not Null,
+	StudentMobile Bigint Null, 
+	StudentRollNo int Not Null,
+	DepartmentID int not null,
+	CONSTRAINT FK_DepartmentID2 FOREIGN KEY (DepartmentID)
+    REFERENCES `enroll`.Department(DepartmentID),
+    AddressID int not null,
+    CONSTRAINT FK_AddressID FOREIGN KEY (AddressID)
+    REFERENCES `enroll`.Address(AddressID),
+	InsertedOn datetime,
+    PRIMARY KEY(`StudentID`)
+);
+
+
+INSERT INTO enroll.Department(DepartmentName,DepartmentDescription,DepartmentCapacity,InsertedOn)
+VALUES ('IT', 'Information Technology', '60', '2020-09-30'),
+ ('EE', 'Electrical Engineering', '120', '2020-09-30'),
+ ('CSE', 'Computer Science Engineering', '140', '2020-09-30'),
+ ('ME', 'Mechanical Engineering', '110', '2020-09-30'),
+ ('ECE', 'Electronic and Communication Engineering', '80', '2020-09-30'),
+ ('AEIE', 'Applied Electronics and Instrumentation Engineering', '50', '2020-09-30');
+
+
+Insert into enroll.Address(StreetAddress,City,State,PostalCode,Country,InsertedOn)
+Values
+('5 Schurz Lane','Grybow','','33-330','Poland','2020-09-30'),
+('628 Waubesa Drive','Jinsheng','','','China','2020-09-30'),
+('44135 Northfield Way','Nowy Dwór Mazowiecki','','05-160','Poland','2020-09-30'),
+('335 Bellgrove Road','Gaoqiao','','','China','2020-09-30'),
+('28 Victoria Junction','Bukovec','','739 84','Czech Republic','2020-09-30'),
+('6 Stuart Road','Wushan','','','China','2020-09-30'),
+('730 Barby Street','Zhengchang','','','China','2020-09-30'),
+('22742 Schiller Street','Sumurwaru','','','Indonesia','2020-09-30'),
+('31 Elka Junction','Cigembong','','','Indonesia','2020-09-30'),
+('5 Kenwood Circle','Davao','','8000','Philippines','2020-09-30'),
+('99 Bunker Hill Crossing','Zarasai','','32001','Lithuania','2020-09-30'),
+('5 Farragut Center','Jaromerice','','569 44','Czech Republic','2020-09-30'),
+('25 Lerdahl Street','Nanshi','','','China','2020-09-30'),
+('918 Bonner Way','Phayakkhaphum Phisai','','44110','Thailand','2020-09-30'),
+('9 West Alley','Sempu','','','Indonesia','2020-09-30'),
+('234 Hagan Lane','Rennes','Bretagne','35033','France','2020-09-30'),
+('33942 Eagle Crest Trail','Oliveiras','Porto','4745-235','Portugal','2020-09-30'),
+('20791 Hermina Way','B?o L?c','','','Vietnam','2020-09-30'),
+('86 Lake View Way','Marsa Alam','','','Egypt','2020-09-30'),
+('19732 Burning Wood Parkway','Piteå','Norrbotten','944 73','Sweden','2020-09-30'),
+('9320 Oak Valley Road','Rathangani','','A45','Ireland','2020-09-30'),
+('2638 Waubesa Circle','Honda','','732048','Colombia','2020-09-30'),
+('6999 Monument Center','Cortes','','6341','Philippines','2020-09-30'),
+('1 Warbler Hill','Proletar','','','Tajikistan','2020-09-30'),
+('1311 Crowley Street','Baghlan','','','Afghanistan','2020-09-30'),
+('19 Walton Way','Öldziyt','','','Mongolia','2020-09-30'),
+('1 Glacier Hill','Cergy-Pontoise','Île-de-France','95304','France','2020-09-30'),
+('5094 Gateway Way','ivinice','','','Bosnia and Herzegovina','2020-09-30'),
+('2 Roth Pass','Tuatuka','','','Indonesia','2020-09-30'),
+('89531 Northview Road','Ganyi','','','China','2020-09-30');
+
+Insert into enroll.Lecturer(LecturerName,LecturerHighestQualification,LecturerAge,DepartmentID,InsertedOn)
+values
+('Peder Bernaldez','M Tech','2010-10-10','6','2020-09-30'),
+('Emile Adolthine','PhD','2010-04-04','5','2020-09-30'),
+('Titos Iorizzi','M Tech','2012-04-09','4','2020-09-30'),
+('Ferris Falck','Msc','2011-05-05','3','2020-09-30'),
+('Georgie McIlwraith','M Tech','2017-05-08','2','2020-09-30'),
+('Karlen Kearn','Msc','2019-03-03','1','2020-09-30'),
+('Axe Whistlecrof','MCA','2019-03-03','6','2020-09-30'),
+('Drucie Bazek','PhD','2019-04-01','5','2020-09-30'),
+('Antony Gamlin','M Tech','2019-04-01','4','2020-09-30'),
+('Alexina Moncaster','MBA','2019-04-01','3','2020-09-30'),
+('Milzie Kabos','MCA','2019-03-03','2','2020-09-30'),
+('Arlene Glendza','MS','2019-03-03','1','2020-09-30'),
+('Kirby Kabisch','M Tech','2019-04-01','1','2020-09-30'),
+('Selma Eliyahu','PhD','2019-04-01','2','2020-09-30'),
+('Ilysa Chooter','M Tech','2019-04-01','3','2020-09-30'),
+('Rozalie Pennycord','MSC','2010-10-10','4','2020-09-30'),
+('Dacey Glidder','M Tech','2010-04-04','5','2020-09-30'),
+('Claretta Diaper','MSC','2012-04-09','6','2020-09-30'),
+('Kalil Pendleton','MCA','2011-05-05','6','2020-09-30'),
+('Trudey Brech','PhD','2011-10-05','5','2020-09-30'),
+('Gypsy Ambrosini','M.Tech','2011-03-30','4','2020-09-30'),
+('Lauree Ribbon','MBA','2013-04-04','3','2020-09-30'),
+('Hugo Valois','MCA','2012-04-29','2','2020-09-30'),
+('Perren Chetter','MS','2018-05-03','1','2020-09-30'),
+('Fawn Coffelt','M.Tech','2020-02-26','1','2020-09-30'),
+('Terrie Golby','PhD','2020-02-26','2','2020-09-30'),
+('Jeanette Ciraldo','M.Tech','2020-03-26','3','2020-09-30'),
+('Elfrieda Elijahu','MSC','2020-03-26','4','2020-09-30'),
+('Guthry Blaes','M.Tech','2020-03-26','5','2020-09-30'),
+('Richy Saice','MSC','2020-02-26','6','2020-09-30');
+
+Insert into enroll.Student(StudentFirstName,StudentLastName, 
+StudentDOB, StudentMobile, StudentRollNo,DepartmentID,AddressID,InsertedOn)
+	Values
+	('Joey','Ironside','1995-11-22','1276234258','1','3','1','2020-10-01'),
+	('Karlotta','Garraway','1997-07-06','2192431615','2','3','24','2020-10-01'),
+	('Jerry','Stutte','1996-12-18','4125425783','3','1','17','2020-10-01'),
+	('Yehudit','Rahill','1995-01-15','9939485406','4','2','29','2020-10-01'),
+	('Cele','Crosetto','1998-11-24','3622733725','5','3','16','2020-10-01'),
+	('Hazlett','Mowsdale','1995-04-09','1482883476','6','4','23','2020-10-01'),
+	('Carlyn','Marks','1996-12-27','6129154080','7','5','20','2020-10-01'),
+	('Ellis','Boatman','1997-04-29','8269707118','8','6','7','2020-10-01'),
+	('Florina','Boyack','1997-08-03','9623352863','9','3','14','2020-10-01'),
+	('Borg','Innet','1997-09-03','5256034960','10','1','19','2020-10-01'),
+    ('Sayres','Jennings','1996-05-12','8675076454','11','4','27','2020-10-01'),
+	('Jarid','Sprull','1998-11-02','1391270091','12','2','6','2020-10-01'),
+	('Elvera','Bannard','1996-09-07','7897232539','13','4','24','2020-10-01'),
+	('Ody','Ingall','1995-03-05','6094734260','14','5','25','2020-10-01'),
+	('Curcio','McWhan','1996-07-29','2394865847','15','6','11','2020-10-01'),
+	('Connie','Sinnie','1995-07-19','1473936221','16','6','23','2020-10-01'),
+	('Auroora','Nel','1996-09-05','2216400391','17','3','14','2020-10-01'),
+	('Wendall','Rosendale','1999-12-30','1818120249','18','3','28','2020-10-01'),
+	('Hadley','Bradbury','1996-08-16','6518067697','19','1','10','2020-10-01'),
+	('Celine','Smales','1999-07-11','7106508130','20','2','10','2020-10-01'),
+        ('Jeselyn','Stevenson','1998-05-15','9231672206','21','2','22','2020-10-01'),
+	('Corinna','Pinkney','1998-01-16','8323630067','22','5','29','2020-10-01'),
+	('Orelle','Adamthwaite','1997-07-26','2539126766','23','3','17','2020-10-01'),
+	('Howie','Seaman','1997-12-01','9888259627','24','2','4','2020-10-01'),
+	('Sibyl','Corey','1996-07-18','4493239590','25','5','11','2020-10-01'),
+	('Ruperta','Peaker','1999-05-22','5124781263','26','5','4','2020-10-01'),
+	('Delmer','Roughey','1995-04-21','4175314364','27','3','22','2020-10-01'),
+	('Gifford','O''Scannill','1996-10-31','3134783726','28','4','22','2020-10-01'),
+	('Hedy','O''Hone','1998-03-29','7316228047','29','2','17','2020-10-01'),
+	('Shalna','Hyde-Chambers','1999-11-23','7455116160','30','5','6','2020-10-01'),
+       ('Ferdie','Di Naapoli','1995-01-17','1905908693','31','4','30','2020-10-01'),
+	('Piper','Giacomuzzo','1998-09-14','5499340503','32','6','4','2020-10-01'),
+	('Gerhardt','Schruurs','1999-11-18','8197494894','33','3','1','2020-10-01'),
+	('Mellicent','Buncher','1996-10-03','4584525312','34','5','28','2020-10-01'),
+	('Corette','Demead','1997-09-17','4909862137','35','5','17','2020-10-01'),
+	('Jorgan','Barson','1997-05-01','6022309183','36','1','21','2020-10-01'),
+	('Koral','Bowen','1998-05-12','4198817454','37','4','3','2020-10-01'),
+	('Allissa','Kitter','1998-08-17','7328676920','38','5','7','2020-10-01'),
+	('Townsend','Doughtery','1998-04-13','2639777958','39','4','7','2020-10-01'),
+	('Yolane','Geratt','1998-06-10','2069585951','40','6','17','2020-10-01'),
+    ('Chrystel','Allwood','1996-09-07','6958461692','41','3','25','2020-10-01'),
+	('Dyana','Clutterbuck','1997-09-22','5842483886','42','1','1','2020-10-01'),
+	('Nikki','Edy','1999-01-10','5096155315','43','6','25','2020-10-01'),
+	('Hendrik','Surr','1997-04-05','2021255732','44','5','11','2020-10-01'),
+	('Marta','Bosch','1998-09-28','4075136713','45','6','5','2020-10-01'),
+	('Garrik','Pell','1999-04-14','3071057649','46','6','7','2020-10-01'),
+	('Stormi','Colbron','1998-10-21','9968113654','47','3','28','2020-10-01'),
+	('Angelique',',Iacivelli','1995-06-07','9518365081','48','5','7','2020-10-01'),
+	('Zack','Hefforde','1999-07-25','5455693035','49','1','29','2020-10-01'),
+	('Gusella','Pettiford','1999-08-23','2425172721','50','4','3','2020-10-01');
+    
+    
+    
+/*QUERY BEGINS*/
+select * from enroll.student;
+select * from enroll.department;
+select * from enroll.lecturer;
+select * from enroll.address;
+
+select concat(s.StudentFirstName,' ',s.StudentLastName) as Student_Fullname,StudentDOB,StudentMobile from enroll.student as s;
+select * from enroll.student as s where s.StudentFirstName LIKE 'B%';
+select * from enroll.student as s where s.StudentFirstName LIKE 'A%A';
+
+select count(*) from enroll.student as s where s.DepartmentID=6;
+
+select concat(s.StudentFirstName,' ',s.StudentLastName) as StudentFullName,s.StudentMobile, timestampdiff(Year,s.StudentDOB,curdate()) AS age  from enroll.student as s;
+select concat(s.StudentFirstName,' ',s.StudentLastName) as StudentFullName,s.StudentMobile, timestampdiff(Year,s.StudentDOB,curdate()) AS age  from enroll.student as s where timestampdiff(Year,s.StudentDOB,curdate())>23;
+
+select l.LecturerID, l.LecturerName,l.LecturerHighestQualification,l.LecturerAge from enroll.lecturer as l;
+
+select l.LecturerID, l.LecturerName,l.LecturerHighestQualification,l.LecturerAge from enroll.lecturer as l where l.LecturerHighestQualification="MS" OR l.LecturerHighestQualification="PhD";
+
+select * from enroll.lecturer as l where l.DepartmentID=2;
+
+select * from enroll.lecturer as l where l.LecturerName LIKE '%R';
+
+select * from enroll.lecturer as l where l.LecturerName LIKE 'E%' or l.LecturerName LIKE '%E';
+
+select upper(l.LecturerName) from enroll.lecturer as l;
+
+select SUBSTRING(l.LecturerName,1,5) as Name,l.LecturerID,l.LecturerHighestQualification from enroll.lecturer as l;
+
+select l.LecturerID,l.LecturerName,l.LecturerHighestQualification,timestampdiff(Year,l.LecturerAge,curdate()) as Age from enroll.lecturer as l;
+
+select * from department;
+
+select * from enroll.department as d where d.DepartmentName='ECE';
+
+select d.DepartmentName,d.DepartmentDescription,d.DepartmentCapacity from enroll.department as d where d.DepartmentCapacity>60;
+
+select * from enroll.address;
+
+select a.AddressID,a.StreetAddress,a.city,a.state,a.Postalcode,a.country from enroll.address as a where a.country="poland";
+
+select * from enroll.address as a where a.state is null;
+select * from enroll.address as a where a.Postalcode is not null;
+
+select * from enroll.address as a where a.city="Honda" AND a.country="Colombia";
+
+
+select Distinct s.StudentDOB from enroll.student as s;
+select Distinct d.DepartmentName from enroll.department as d;
+select Distinct a.country from enroll.address as a;
+select Distinct a.state from enroll.address as a;
+select Distinct a.city from enroll.address as a;
+
+select * from enroll.lecturer;
+
+select l.LecturerID,l.LecturerName,l.LecturerHighestQualification,
+(CASE when timestampdiff(Year,l.LecturerAge,curdate())<5 Then "Beginning level"
+when timestampdiff(Year,l.LecturerAge,curdate())>=5 AND timestampdiff(Year,l.LecturerAge,curdate())<10 Then "Mid level"
+ELSE "Experienced" 
+END) as lecturertype from enroll.lecturer as l;
+
+select * from enroll.student as s inner join enroll.department as d on s.DepartmentID=d.DepartmentID;
+select s.StudentFirstName,s.StudentDOB,s.StudentMobile,a.StreetAddress,a.Postalcode from enroll.student as s inner join enroll.address as a on s.AddressID=a.AddressID;
+
+select d.DepartmentID,d.DepartmentName,d.DepartmentDescription,l.LecturerName,l.LecturerHighestQualification from enroll.department as d inner join enroll.lecturer as l on d.DepartmentID = l.DepartmentID order by d.DepartmentID;
+
+select s.StudentFirstName,s.StudentMobile,a.city,a.Postalcode,d.DepartmentID,d.DepartmentName,l.LecturerName,l.LecturerHighestQualification from enroll.student as s join enroll.address as a on s.AddressID=a.AddressID join enroll.department as d on s.DepartmentID=d.DepartmentID join enroll.lecturer as l on d.DepartmentID=l.LecturerID;
+
+select s.StudentFirstName,s.StudentMobile,a.city,a.Postalcode,d.DepartmentID,d.DepartmentName,l.LecturerName,l.LecturerHighestQualification from enroll.student as s join enroll.address as a on s.AddressID=a.AddressID join enroll.department as d on s.DepartmentID=d.DepartmentID join enroll.lecturer as l on d.DepartmentID=l.LecturerID where d.DepartmentName="ME" or d.DepartmentName="ECE";
+
+select s.StudentFirstName,s.StudentMobile,d.DepartmentID,d.DepartmentName,l.LecturerName,l.LecturerHighestQualification from enroll.student as s join enroll.department as d on s.DepartmentID=d.DepartmentID join enroll.lecturer as l on d.DepartmentID=l.LecturerID where l.LecturerHighestQualification="MS" or l.LecturerHighestQualification="PhD";
+
+select d.DepartmentName, count(*) as NumberOfStudent  from enroll.student as s inner join enroll.department as d on s.DepartmentID=d.DepartmentID group by d.DepartmentName;
+
+select d.DepartmentName, count(*) as NUmberoflecturer  from enroll.lecturer as l inner join enroll.department as d on l.DepartmentID=d.DepartmentID group by d.DepartmentName;
+
+
+
+create table StudCopy as select * from student;
+select * from StudCopy;
+
+
+
+
+

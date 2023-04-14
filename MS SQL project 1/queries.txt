@@ -1,0 +1,710 @@
+/*GROUP-E MIDTERM PROJECT */
+-- BDM 1034 Application for Big Data Analytics
+
+--------------------------------------------------------
+/*GROUP MEMBERS*/
+
+-- Bikesh Prajapati
+-- Padam
+-- Kripa
+-- Indrani
+-- Dolsy
+
+
+
+
+/* 1.	Create a database called LMT_University.*/
+CREATE DATABASE LMT_University;
+
+USE LMT_University;
+
+/*2.	Create an enroll schema under LMT_University.*/
+CREATE SCHEMA enroll;
+GO
+
+/* 3. use "enroll" schema for creating the project*/
+
+SELECT * FROM sys.schemas;
+
+/*4. Create all the database table as Database Diagram*/
+
+/*5.Create an Address table under enroll schema with the following specifications*/
+DROP TABLE IF EXISTS enroll.Address
+CREATE TABLE enroll.Address (
+	AddressID int IDENTITY (1,1) Not null constraint PK_AddressID Primary Key,
+	StreetAddress varchar(30) null,
+	City varchar(30) Not null,
+	State varchar(15) null,
+	PostalCode varchar(10) null,
+	Country varchar(30) Not null,
+	InsertedOn datetime Not null
+	
+);
+
+
+/*6.	Create a Department table under enroll schema*/
+
+DROP TABLE IF EXISTS enroll.Department
+CREATE TABLE enroll.Department(
+	DepartmentID int IDENTITY(1,1) Not null constraint PK_DepartmentID Primary Key,
+	DepartmentName varchar(5) Not null,
+	DepartmentDescription varchar(60) Null,
+	DepartmentCapacity  int Not null,
+	InsertedOn datetime Not null
+);
+
+/*7.	Create a Lecturer table under enroll schema 
+with the following specifications*/
+
+DROP TABLE IF EXISTS enroll.Lecturer
+CREATE TABLE enroll.Lecturer(
+	LecturerID int IDENTITY(1,1) Not null constraint PK_LecturerID Primary Key,
+	LecturerName varchar(30) Not null,
+	LecturerHighestQualification varchar(10) null,
+	LecturerAge date Not null,
+	DepartmentID int not null constraint FK_DepartmentID
+	Foreign Key References [enroll].[Department](DepartmentID), 
+	InsertedOn datetime  Not Null
+
+);
+
+/*8.	Create a Student table under enroll schema 
+with the following specifications*/
+
+DROP TABLE IF EXISTS enroll.Student
+CREATE TABLE enroll.Student(
+	StudentID int IDENTITY(1,1) Not null constraint PK_StudentID Primary Key,
+	StudentFirstName varchar (15) Not Null,
+	StudentLastName varchar(15) Null,
+	StudentDOB Date Not Null,
+	StudentMobile Bigint Null, 
+	StudentRollNo int Not Null,
+	DepartmentID int not null constraint FK_DepartmentID2
+	Foreign Key References [enroll].[Department](DepartmentID),
+	AddressID int not null constraint FK_AddressID
+	Foreign Key References [enroll].[Address](AddressID),
+	InsertedOn datetime
+);
+
+/*Insert data into Department table user enroll schema*/
+
+INSERT INTO enroll.Department(DepartmentName,DepartmentDescription,DepartmentCapacity,InsertedOn)
+VALUES ('IT', 'Information Technology', '60', '2020-09-30'),
+ ('EE', 'Electrical Engineering', '120', '2020-09-30'),
+ ('CSE', 'Computer Science Engineering', '140', '2020-09-30'),
+ ('ME', 'Mechanical Engineering', '110', '2020-09-30'),
+ ('ECE', 'Electronic and Communication Engineering', '80', '2020-09-30'),
+ ('AEIE', 'Applied Electronics and Instrumentation Engineering', '50', '2020-09-30');
+
+ /*Insert data into Address table user enroll schema*/
+
+Insert into [enroll].[Address]([StreetAddress],[City],[State],[PostalCode],[Country],[InsertedOn])
+Values
+('5 Schurz Lane','Grybow','','33-330','Poland','2020-09-30'),
+('628 Waubesa Drive','Jinsheng','','','China','2020-09-30'),
+('44135 Northfield Way','Nowy Dwór Mazowiecki','','05-160','Poland','2020-09-30'),
+('335 Bellgrove Road','Gaoqiao','','','China','2020-09-30'),
+('28 Victoria Junction','Bukovec','','739 84','Czech Republic','2020-09-30'),
+('6 Stuart Road','Wushan','','','China','2020-09-30'),
+('730 Barby Street','Zhengchang','','','China','2020-09-30'),
+('22742 Schiller Street','Sumurwaru','','','Indonesia','2020-09-30'),
+('31 Elka Junction','Cigembong','','','Indonesia','2020-09-30'),
+('5 Kenwood Circle','Davao','','8000','Philippines','2020-09-30'),
+('99 Bunker Hill Crossing','Zarasai','','32001','Lithuania','2020-09-30'),
+('5 Farragut Center','Jaromerice','','569 44','Czech Republic','2020-09-30'),
+('25 Lerdahl Street','Nanshi','','','China','2020-09-30'),
+('918 Bonner Way','Phayakkhaphum Phisai','','44110','Thailand','2020-09-30'),
+('9 West Alley','Sempu','','','Indonesia','2020-09-30'),
+('234 Hagan Lane','Rennes','Bretagne','35033','France','2020-09-30'),
+('33942 Eagle Crest Trail','Oliveiras','Porto','4745-235','Portugal','2020-09-30'),
+('20791 Hermina Way','B?o L?c','','','Vietnam','2020-09-30'),
+('86 Lake View Way','Marsa Alam','','','Egypt','2020-09-30'),
+('19732 Burning Wood Parkway','Piteå','Norrbotten','944 73','Sweden','2020-09-30'),
+('9320 Oak Valley Road','Rathangani','','A45','Ireland','2020-09-30'),
+('2638 Waubesa Circle','Honda','','732048','Colombia','2020-09-30'),
+('6999 Monument Center','Cortes','','6341','Philippines','2020-09-30'),
+('1 Warbler Hill','Proletar','','','Tajikistan','2020-09-30'),
+('1311 Crowley Street','Baghlan','','','Afghanistan','2020-09-30'),
+('19 Walton Way','Öldziyt','','','Mongolia','2020-09-30'),
+('1 Glacier Hill','Cergy-Pontoise','Île-de-France','95304','France','2020-09-30'),
+('5094 Gateway Way','ivinice','','','Bosnia and Herzegovina','2020-09-30'),
+('2 Roth Pass','Tuatuka','','','Indonesia','2020-09-30'),
+('89531 Northview Road','Ganyi','','','China','2020-09-30');
+
+
+/*Insert data into lecturer table user enroll schema*/
+
+
+Insert into enroll.Lecturer(LecturerName,LecturerHighestQualification,LecturerAge,DepartmentID,InsertedOn)
+values
+('Peder Bernaldez','M Tech','2010-10-10','6','2020-09-30'),
+('Emile Adolthine','PhD','2010-04-04','5','2020-09-30'),
+('Titos Iorizzi','M Tech','2012-04-09','4','2020-09-30'),
+('Ferris Falck','Msc','2011-05-05','3','2020-09-30'),
+('Georgie McIlwraith','M Tech','2017-05-08','2','2020-09-30'),
+('Karlen Kearn','Msc','2019-03-03','1','2020-09-30'),
+('Axe Whistlecrof','MCA','2019-03-03','6','2020-09-30'),
+('Drucie Bazek','PhD','2019-04-01','5','2020-09-30'),
+('Antony Gamlin','M Tech','2019-04-01','4','2020-09-30'),
+('Alexina Moncaster','MBA','2019-04-01','3','2020-09-30'),
+('Milzie Kabos','MCA','2019-03-03','2','2020-09-30'),
+('Arlene Glendza','MS','2019-03-03','1','2020-09-30'),
+('Kirby Kabisch','M Tech','2019-04-01','1','2020-09-30'),
+('Selma Eliyahu','PhD','2019-04-01','2','2020-09-30'),
+('Ilysa Chooter','M Tech','2019-04-01','3','2020-09-30'),
+('Rozalie Pennycord','MSC','2010-10-10','4','2020-09-30'),
+('Dacey Glidder','M Tech','2010-04-04','5','2020-09-30'),
+('Claretta Diaper','MSC','2012-04-09','6','2020-09-30'),
+('Kalil Pendleton','MCA','2011-05-05','6','2020-09-30'),
+('Trudey Brech','PhD','2011-10-05','5','2020-09-30'),
+('Gypsy Ambrosini','M.Tech','2011-03-30','4','2020-09-30'),
+('Lauree Ribbon','MBA','2013-04-04','3','2020-09-30'),
+('Hugo Valois','MCA','2012-04-29','2','2020-09-30'),
+('Perren Chetter','MS','2018-05-03','1','2020-09-30'),
+('Fawn Coffelt','M.Tech','2020-02-26','1','2020-09-30'),
+('Terrie Golby','PhD','2020-02-26','2','2020-09-30'),
+('Jeanette Ciraldo','M.Tech','2020-03-26','3','2020-09-30'),
+('Elfrieda Elijahu','MSC','2020-03-26','4','2020-09-30'),
+('Guthry Blaes','M.Tech','2020-03-26','5','2020-09-30'),
+('Richy Saice','MSC','2020-02-26','6','2020-09-30');
+
+
+/*Insert data into Student table user enroll schema*/
+
+
+Insert into enroll.Student(StudentFirstName,StudentLastName, 
+StudentDOB, StudentMobile, StudentRollNo,DepartmentID,AddressID,InsertedOn)
+	Values
+	('Joey','Ironside','1995-11-22','1276234258','1','3','1','2020-10-01'),
+	('Karlotta','Garraway','1997-07-06','2192431615','2','3','24','2020-10-01'),
+	('Jerry','Stutte','1996-12-18','4125425783','3','1','17','2020-10-01'),
+	('Yehudit','Rahill','1995-01-15','9939485406','4','2','29','2020-10-01'),
+	('Cele','Crosetto','1998-11-24','3622733725','5','3','16','2020-10-01'),
+	('Hazlett','Mowsdale','1995-04-09','1482883476','6','4','23','2020-10-01'),
+	('Carlyn','Marks','1996-12-27','6129154080','7','5','20','2020-10-01'),
+	('Ellis','Boatman','1997-04-29','8269707118','8','6','7','2020-10-01'),
+	('Florina','Boyack','1997-08-03','9623352863','9','3','14','2020-10-01'),
+	('Borg','Innet','1997-09-03','5256034960','10','1','19','2020-10-01'),
+    ('Sayres','Jennings','1996-05-12','8675076454','11','4','27','2020-10-01'),
+	('Jarid','Sprull','1998-11-02','1391270091','12','2','6','2020-10-01'),
+	('Elvera','Bannard','1996-09-07','7897232539','13','4','24','2020-10-01'),
+	('Ody','Ingall','1995-03-05','6094734260','14','5','25','2020-10-01'),
+	('Curcio','McWhan','1996-07-29','2394865847','15','6','11','2020-10-01'),
+	('Connie','Sinnie','1995-07-19','1473936221','16','6','23','2020-10-01'),
+	('Auroora','Nel','1996-09-05','2216400391','17','3','14','2020-10-01'),
+	('Wendall','Rosendale','1999-12-30','1818120249','18','3','28','2020-10-01'),
+	('Hadley','Bradbury','1996-08-16','6518067697','19','1','10','2020-10-01'),
+	('Celine','Smales','1999-07-11','7106508130','20','2','10','2020-10-01'),
+        ('Jeselyn','Stevenson','1998-05-15','9231672206','21','2','22','2020-10-01'),
+	('Corinna','Pinkney','1998-01-16','8323630067','22','5','29','2020-10-01'),
+	('Orelle','Adamthwaite','1997-07-26','2539126766','23','3','17','2020-10-01'),
+	('Howie','Seaman','1997-12-01','9888259627','24','2','4','2020-10-01'),
+	('Sibyl','Corey','1996-07-18','4493239590','25','5','11','2020-10-01'),
+	('Ruperta','Peaker','1999-05-22','5124781263','26','5','4','2020-10-01'),
+	('Delmer','Roughey','1995-04-21','4175314364','27','3','22','2020-10-01'),
+	('Gifford','O''Scannill','1996-10-31','3134783726','28','4','22','2020-10-01'),
+	('Hedy','O''Hone','1998-03-29','7316228047','29','2','17','2020-10-01'),
+	('Shalna','Hyde-Chambers','1999-11-23','7455116160','30','5','6','2020-10-01'),
+       ('Ferdie','Di Naapoli','1995-01-17','1905908693','31','4','30','2020-10-01'),
+	('Piper','Giacomuzzo','1998-09-14','5499340503','32','6','4','2020-10-01'),
+	('Gerhardt','Schruurs','1999-11-18','8197494894','33','3','1','2020-10-01'),
+	('Mellicent','Buncher','1996-10-03','4584525312','34','5','28','2020-10-01'),
+	('Corette','Demead','1997-09-17','4909862137','35','5','17','2020-10-01'),
+	('Jorgan','Barson','1997-05-01','6022309183','36','1','21','2020-10-01'),
+	('Koral','Bowen','1998-05-12','4198817454','37','4','3','2020-10-01'),
+	('Allissa','Kitter','1998-08-17','7328676920','38','5','7','2020-10-01'),
+	('Townsend','Doughtery','1998-04-13','2639777958','39','4','7','2020-10-01'),
+	('Yolane','Geratt','1998-06-10','2069585951','40','6','17','2020-10-01'),
+    ('Chrystel','Allwood','1996-09-07','6958461692','41','3','25','2020-10-01'),
+	('Dyana','Clutterbuck','1997-09-22','5842483886','42','1','1','2020-10-01'),
+	('Nikki','Edy','1999-01-10','5096155315','43','6','25','2020-10-01'),
+	('Hendrik','Surr','1997-04-05','2021255732','44','5','11','2020-10-01'),
+	('Marta','Bosch','1998-09-28','4075136713','45','6','5','2020-10-01'),
+	('Garrik','Pell','1999-04-14','3071057649','46','6','7','2020-10-01'),
+	('Stormi','Colbron','1998-10-21','9968113654','47','3','28','2020-10-01'),
+	('Angelique',',Iacivelli','1995-06-07','9518365081','48','5','7','2020-10-01'),
+	('Zack','Hefforde','1999-07-25','5455693035','49','1','29','2020-10-01'),
+	('Gusella','Pettiford','1999-08-23','2425172721','50','4','3','2020-10-01');
+
+---------------------------------------------------------------------------------------------------
+
+/*9.	Write the following Query based on the above datasets.*/
+
+/*a.	List all the Student information from the Student table.*/
+		SELECT * FROM enroll.Student
+
+/*b.	List all the Department information from the Department table.*/
+		SELECT * FROM enroll.Department
+
+/*c.	List all the Lecturer information from the Lecturer table.*/
+		SELECT * FROM enroll.Lecturer
+
+/*d.	List all the Address information from the Address table.*/
+		SELECT * FROM enroll.Address
+
+/*e.	List the StudentFullName, StudentDOB, StudentMobile from
+		Student [StudentFullName=StudentFirstName +    + StudentLastName]*/
+
+		SELECT (s.StudentFirstName + ' ' + s.StudentLastName) as StudentFullName,
+		s.StudentDOB,s.StudentMobile
+		FROM enroll.Student as s;
+
+/*f.	List the StudentID, StudentFirstName, StudentLastName, StudentDOB,
+		StudentMobile from Student in AddressID 7.*/
+		
+		SELECT s.StudentID, s.StudentFirstName,s.StudentLastName,s.StudentDOB,s.StudentMobile
+		FROM enroll.Student as s
+		WHERE s.AddressID = 7;
+/*g.	List all the student information whose first name is start with 'B'*/
+		
+		SELECT * FROM enroll.Student as s
+		WHERE s.StudentFirstName Like 'B%';
+
+/* h.	List all the student information whose first name is start and end with 'A'*/
+		
+		SELECT * FROM enroll.Student as s
+		WHERE s.StudentFirstName Like 'A%A';
+
+/*g.	Count the number of Student from Student table whose DepartmentID 6*/
+		
+		SELECT count(*) as 'Number of stundet at dept 6'
+		FROM enroll.Student as s
+		WHERE s.DepartmentID = 6;
+
+/*j.	List all the StudentFullName, StudentAge, StudentMobile from Student 
+		[StudentFullName= StudentFirstName +    + StudentLastName]
+		[StudentAge= Current date  DOB (in Years)]*/
+		
+		SELECT (s.StudentFirstName + ' ' + s.StudentLastName) as StudentFullName,
+		DATEDIFF(YY,s.StudentDOB,GETDATE()) AS age ,s.StudentMobile
+		FROM enroll.Student as s;
+
+
+/*k.	List all the StudentFullName, StudentAge, StudentMobile whose Age>23 
+		from Student [StudentFullName= StudentFirstName +    + StudentLastName] */
+
+		SELECT (s.StudentFirstName + ' ' + s.StudentLastName) as StudentFullName,
+		DATEDIFF(YY,s.StudentDOB,GETDATE()) as Age ,s.StudentMobile
+		FROM enroll.Student as s
+		WHERE DATEDIFF(YY,s.StudentDOB,GETDATE()) > 23;
+
+--l.	List all the StudentFullName, StudentAge, StudentMobile whose Age is either 21 or 23 from Student 
+--[StudentFullName= StudentFirstName +    + StudentLastName]
+--[StudentAge= Current date  DOB (in Years)]
+		SELECT (s.StudentFirstName + ' ' + s.StudentLastName) as StudentFullName,
+		DATEDIFF(YY,s.StudentDOB,GETDATE()) as Age ,s.StudentMobile
+		FROM enroll.Student as s
+		WHERE DATEDIFF(YY,s.StudentDOB,GETDATE()) = 21 
+		OR DATEDIFF(YY,s.StudentDOB,GETDATE()) = 23;
+		
+
+
+--m.	List all the LecturerID, LecturerName, LecturerHighestQualification, LecturerAge from Lecturer.
+
+		SELECT LecturerID, LecturerName, LecturerHighestQualification, 
+		DATEDIFF(YY,LecturerAge,GETDATE()) as Age 
+		From enroll.Lecturer;
+
+--n.	List all the LecturerID, LecturerName, LecturerHighestQualification, LecturerAge from Lecturer
+--whose HighestQualification is either MS or PhD.
+
+	SELECT  LecturerID, LecturerName, LecturerHighestQualification, LecturerAge 
+	FROM enroll.Lecturer 
+	WHERE LecturerHighestQualification='MS' OR LecturerHighestQualification='PhD';
+
+/*o.	List all the lecturer information who belongs to DepartmentID 2.*/
+SELECT * FROM enroll.Lecturer WHERE  DepartmentID=2;
+
+/*p.	List all the lecturer information whose name end with R.*/
+SELECT * FROM enroll.Lecturer WHERE LecturerName LIKE '%R';
+
+/*q.	List all the lecturer information whose name either start or end with E.*/
+SELECT * FROM enroll.Lecturer WHERE LecturerName LIKE 'E%' OR LecturerName LIKE '%E';
+
+/*r.	List all the lecturer name is in capital letter.*/
+SELECT UPPER(LecturerName) AS UppercaseCustomerName FROM enroll.Lecturer;
+
+/*s.	Display 5 character from the lecturer name along with LecturerID and LecturerHighestQualification.*/
+SELECT SUBSTRING(LecturerName, 1, 5) AS ExtractString, LecturerID, LecturerHighestQualification from enroll.Lecturer;
+
+/*t.	List LecturerID, LecturerName, LecturerHighestQualification, LecturerAge(in year) 
+[LecturerAge= Current Date  LecturerAge)] (in year).*/
+SELECT LecturerID, LecturerName, LecturerHighestQualification, LecturerAge,
+GETDATE() AS Today,DATEDIFF(YY,LecturerAge,GETDATE()) AS [Age] FROM enroll.Lecturer;
+
+/*u.	List DepartmentID, DepartmentName, DepartmentDescription, DepartmentCapacity 
+from Department.*/
+SELECT DepartmentID, DepartmentName, DepartmentDescription, 
+DepartmentCapacity FROM enroll.Department;
+
+/*v.	List all the Department information whos DepartmentName is ECE.*/
+SELECT * FROM enroll.Department WHERE DepartmentName='ECE';
+
+/*w.	List all DepartmentName, DepartmentDescription, DepartmentCapacity from 
+Department whose capacity is greater than 60.*/
+SELECT  DepartmentName, DepartmentDescription, DepartmentCapacity 
+FROM enroll.Department WHERE DepartmentCapacity>60;
+
+/*x.	List all AddressID, StreetAddress, City, State, PostalCode, Country from Address.*/
+SELECT AddressID, StreetAddress, City, State, PostalCode, Country 
+FROM enroll.Address;
+
+/*y.	List all AddressID, StreetAddress, City, State, PostalCode, Country from Address 
+who belongs to Poland country.*/
+SELECT AddressID, StreetAddress, City, State, PostalCode, Country 
+FROM enroll.Address WHERE Country='Poland';
+
+/*z.	List all the Address information whose state is null.*/
+SELECT AddressID, StreetAddress, City, State, PostalCode, Country FROM enroll.Address WHERE 
+State IS NULL;
+
+/*aa.	List all the Address information whose PostalCode is not null.*/
+SELECT AddressID, StreetAddress, City, State, PostalCode, Country 
+FROM enroll.Address WHERE PostalCode
+IS NOT NULL;
+
+/*bb.	List all the Address information whose City name is "Honda" and Country name is "Colombia"*/
+ SELECT AddressID, StreetAddress, City, State, PostalCode, Country
+ FROM enroll.Address WHERE City= 'Honda' AND Country= 'Colombia';
+
+
+ ----------------------------------------------------------------------------------------------------
+--10.	Write the following Query based on the above datasets.
+	--a.	List unique DOB from Student.
+
+		select 
+			distinct stud.StudentDOB
+			from enroll.student as stud;
+
+	--b.	List unique DepartmentName from Department.
+		select 
+			distinct dept.DepartmentName
+			from enroll.Department as dept;
+
+	--c.	List unique Country name from Address.
+		select 
+			distinct address.Country
+			from enroll.Address as address;
+
+	--d.	List unique State name from Address.
+
+		select 
+			distinct address.State
+			from enroll.Address as address;
+	--e.	List unique City name from Address
+
+		select 
+			distinct address.City
+			from enroll.Address as address;
+	--f.	List all the LecturerID, LecturerName, LecturerHighestQualification, LecturerYearService 
+					--from Lecturer [LecturerYearService= Current Date  LecturerAge] (in year).
+
+		select 
+			lect.LecturerID, lect.LecturerName, lect.LecturerHighestQualification, DATEDIFF(year, lect.LecturerAge, GETDATE()) AS LecturerYearService
+			from enroll.Lecturer as lect
+
+	--g.	List all the LecturerID, LecturerName, LecturerHighestQualification, LecturerType 
+			--from Lecturer 
+			--[LecturerType= if LecturerYearService< 5 then "Begining Level Experience" 
+			--else if LecturerYearService>= 5 
+			--and LecturerYearService<10 then "Mid Level experience" else "Experienced".
+
+		select   
+			lect.LecturerID, lect.LecturerName, lect.LecturerHighestQualification, 
+			(CASE WHEN DATEDIFF(year, lect.LecturerAge, GETDATE()) < 5 THEN 'Begining Level Experience' 
+				WHEN DATEDIFF(year, lect.LecturerAge, GETDATE()) >= 5 and DATEDIFF(year, lect.LecturerAge, GETDATE())< 10   THEN 'Mid Level Experience' 
+				ELSE 'Experienced'
+			END 
+			) as 'Lecture Type'
+			from enroll.Lecturer as lect
+
+-------------------------------------------------------------------------------------------------------
+
+--11.	Write the following Query based on the above datasets.
+--a.	Display all Student and their Department Information based on the relationship.
+		SELECT Student.StudentID,
+			Student.StudentFirstName,
+			Student.StudentLastName,
+			Student.DepartmentID,
+			Department.DepartmentName,
+			Department.DepartmentDescription
+		FROM enroll.Student
+		LEFT JOIN enroll.Department ON Student.DepartmentID = Department.DepartmentID;
+
+--b.	Display all Student and their Address Information based on the relationship.
+		SELECT Student.StudentID,
+			Student.StudentFirstName,
+			Student.StudentLastName,
+			Student.AddressID,
+			Address.StreetAddress,
+			Address.City,
+			Address.State,
+			Address.PostalCode,
+			Address.Country
+		FROM enroll.Student
+		INNER JOIN enroll.Address ON Student.AddressID = Address.AddressID;
+
+--c.	Display all Department and their Lecturer Information based on the relationship.
+		SELECT Department.DepartmentID,
+			Department.DepartmentName,
+			Department.DepartmentDescription,
+			Department.DepartmentCapacity,
+			Lecturer.LecturerName,
+			Lecturer.LecturerHighestQualification,
+			Lecturer.LecturerAge
+		FROM enroll.Department
+		INNER JOIN enroll.Lecturer ON Department.DepartmentID = Lecturer.DepartmentID
+		ORDER BY DepartmentID;
+
+--d.	Display all Student with their Department with Lecturer Information based on the relationship.
+		SELECT Student.StudentID,
+			Student.StudentFirstName,
+			Student.StudentLastName,
+			Student.DepartmentID,
+			Department.DepartmentName,
+			Department.DepartmentDescription,
+			Lecturer.LecturerName,
+			Lecturer.LecturerHighestQualification,
+			Lecturer.LecturerAge
+		FROM enroll.Student
+		JOIN enroll.Department ON Student.DepartmentID = Department.DepartmentID
+		JOIN enroll.Lecturer ON Department.DepartmentID = Lecturer.DepartmentID;
+
+--e.	Display all Student with their Address and Department Information based on the relationship.
+		SELECT Student.StudentID,
+			Student.StudentFirstName,
+			Student.StudentLastName,
+			Student.AddressID,
+			Address.StreetAddress,
+			Address.City,
+			Address.State,
+			Address.PostalCode,
+			Address.Country,
+			Student.DepartmentID,
+			Department.DepartmentName,
+			Department.DepartmentDescription
+		FROM enroll.Student
+		JOIN enroll.Department ON Student.DepartmentID = Department.DepartmentID
+		JOIN enroll.Address ON Student.AddressID = Address.AddressID;
+
+
+--f.	Display all Student with Address, Department and Lecturer Information based on the relationship.
+		SELECT Student.StudentID,
+			Student.StudentFirstName,
+			Student.StudentLastName,
+			Student.AddressID,
+			Address.StreetAddress,
+			Address.City,
+			Address.State,
+			Address.PostalCode,
+			Address.Country,
+			Student.DepartmentID,
+			Department.DepartmentName,
+			Department.DepartmentDescription,
+			Lecturer.LecturerName,
+			Lecturer.LecturerHighestQualification,
+			Lecturer.LecturerAge
+		FROM enroll.Student
+		JOIN enroll.Department ON Student.DepartmentID = Department.DepartmentID
+		JOIN enroll.Address ON Student.AddressID = Address.AddressID
+		JOIN enroll.Lecturer ON Department.DepartmentID = Lecturer.DepartmentID;
+
+
+		
+
+
+	/*g.	Display all Student with Address, Department and Lecturer Information
+	who belongs to either ME or ECE department.*/
+
+	SELECT s.StudentFirstName,a.StreetAddress,d.DepartmentName,l.*
+	FROM enroll.Student as s
+	INNER JOIN enroll.Department as d 
+	ON s.DepartmentID = d.DepartmentID
+	INNER JOIN enroll.Address as a
+	ON s.AddressID = a.AddressID
+	INNER JOIN enroll.Lecturer as l
+	ON s.DepartmentID = l.DepartmentID
+	WHERE  d.DepartmentName = 'ME' OR 
+			d.DepartmentName = 'ECE';
+
+	/*h.	Display Student with Department and their Lecturer information 
+	based on the LecturerHighestQualification either MS or PhD.*/
+	SELECT s.StudentFirstName,s.StudentLastName
+	,d.DepartmentName,l.*
+	FROM enroll.Student as s
+	INNER JOIN enroll.Department as d 
+	ON s.DepartmentID = d.DepartmentID
+	INNER JOIN enroll.Lecturer as l
+	ON s.DepartmentID = l.DepartmentID
+	WHERE l.LecturerHighestQualification = 'MS' OR 
+		   l.LecturerHighestQualification ='PhD';
+
+	/*i.	Display Student with Department and Address Information,
+	where student belongs to Thailand country.*/
+		SELECT s.StudentFirstName,s.StudentLastName,a.*,d.DepartmentName
+	FROM enroll.Student as s
+	INNER JOIN enroll.Department as d 
+	ON s.DepartmentID = d.DepartmentID
+	INNER JOIN enroll.Address as a
+	ON s.AddressID = a.AddressID
+	WHERE a.Country = 'Thailand';
+
+	/*j.	Display Count of Student, Department wise.*/
+
+	SELECT d.DepartmentName, COUNT(*) As 'Number of student' 
+	FROM enroll.Student as s
+	INNER JOIN enroll.Department as d
+	ON s.DepartmentID = d.DepartmentID
+	GROUP BY d.DepartmentName;
+
+	/*k.	Display Count of Lecturer, Department wise.*/
+	SELECT d.DepartmentName, COUNT(*) As 'Number of Lecturer' 
+	FROM enroll.Lecturer as  l
+	INNER JOIN enroll.Department as d
+	ON l.DepartmentID = d.DepartmentID
+	GROUP BY d.DepartmentName;
+
+	/*l.	Display Count of Student, Country wise.*/
+	SELECT a.Country, COUNT(*) As 'Number of student' 
+	FROM enroll.Student as s
+	INNER JOIN enroll.Address as a
+	ON s.AddressID = a.AddressID
+	GROUP BY a.Country;
+
+
+	--------------------------------------------------------------------------------------------
+
+	/*12.	Write the following Query based on the above datasets.*/
+
+	/*a.	Create new table StudCopy and copy all records from Student table.*/
+	--CREATE TABLE new_table As Select * from enroll.Student;
+		SELECT *
+		INTO StudCopy
+		FROM enroll.Student;
+
+		select * from StudCopy;
+
+
+
+	/*b.	Create a new table DeptCopy and copy only the schema from Department table.*/
+	
+		SELECT  * 
+		INTO DeptCopy
+		FROM enroll.Department
+		WHERE 1 = 0;
+
+		
+
+		Select * from DeptCopy;
+   
+	/*c.	Create a new table DepartmentCopy and copy all records from Department table.*/
+		SELECT *
+		INTO DepartmentCopy
+		FROM enroll.Department;
+
+		select * from DepartmentCopy;
+
+	/*d.	Create a new table AddrCopy and copy only the schema from Address table.*/
+		SELECT *
+		INTO AddrCopy
+		FROM enroll.Student
+		WHERE 1 = 0;
+
+	/*e.	Create a new table AddressCopy and copy all the records from Address table.*/
+		SELECT *
+		INTO AddressCopy
+		FROM enroll.Department;
+
+		select * from AddressCopy;
+		
+		
+
+	/*f.	Create a new table LecturerCopy and copy all the records from Lecturer table.*/
+
+		SELECT *
+		INTO LecturerCopy
+		FROM enroll.Lecturer;
+
+		select * from LecturerCopy;
+
+
+-------------------------------------------------------------------------------------------------------
+/*13.	Write the following Query based on the above datasets.*/
+
+/*a.	Delete all the records from LecturerCopy table.*/
+DROP TABLE LecturerCopy;
+
+--b.	Delete all the student information for the students who belong to IT department.
+DELETE FROM enroll.Student
+WHERE EXISTS
+  (SELECT *
+   FROM enroll.Department
+   WHERE DepartmentID = Student.DepartmentID
+   AND DepartmentName = 'IT');
+
+--c.	Delete all the student information for the students
+--who belong to Indonesia country.
+DELETE FROM enroll.Student
+WHERE EXISTS
+  (SELECT *
+   FROM enroll.Address
+   WHERE Address.AddressID = Student.AddressID 
+   AND Country = 'Indonesia');
+
+--d.	Delete all the student information for the student
+--who belongs to Nanshi city.
+DELETE FROM enroll.Student
+WHERE EXISTS
+  (SELECT *
+   FROM enroll.Address
+   WHERE Address.AddressID = Student.AddressID 
+   AND City = 'Nanshi');
+
+/*e.	Delete all the student information for the student 
+who belongs to Bretagne state.*/
+DELETE FROM enroll.Student
+WHERE EXISTS
+  (SELECT *
+   FROM enroll.Address
+   WHERE Address.AddressID = Student.AddressID 
+   AND State = 'Bretagne');
+
+
+
+----------------------------------------------------------------------------------------
+/*14.	Write the following Query based on the above datasets.*/
+
+
+/*a.	Update StudentMobile for those students who belongs
+to Department ME.*/
+
+UPDATE s
+  SET  s.StudentMobile = '2345678910'
+  FROM enroll.Student as s
+  INNER JOIN enroll.Department AS d
+  ON s.DepartmentID = d.DepartmentID
+  WHERE DepartmentName = 'ME';
+
+/*b.	Update Student DepartmentID as 3, for the StudentID=42.*/
+UPDATE enroll.Student
+SET DepartmentID='3'
+WHERE StudentID='42';
+
+
+/*c.	Update LecturerHighestQualification as PHd for the Lecturer 
+whose LecturerHighestQualification= PhD.*/
+UPDATE enroll.Lecturer
+SET LecturerHighestQualification='PHd'
+WHERE LecturerHighestQualification='PhD';
+
+/*d.	Update PostalCode as 00000 for the Address which contain NULL
+as a PostalCode.*/
+UPDATE enroll.Address
+SET PostalCode='00000'
+WHERE PostalCode IS NULL;
+
+
+/*e.	Update StudentLastName as Paul for the Student whose Name is Jerry.*/
+UPDATE enroll.Student
+SET StudentLastName='Paul'
+WHERE StudentFirstName='Jerry';
